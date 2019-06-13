@@ -37,17 +37,19 @@ void gpio_set_output(unsigned pin) {
       gpio_fsel = gpio_fsel2;
       break;
     }
-    *gpio_fsel &= ~(0b111 << ((pin % 10) * 3)); 
+    *gpio_fsel &= ~(0b111 << ((pin % 10) * 3));
     *gpio_fsel |= 0b001 << ((pin % 10) * 3);  // set the pin out
 }
 
 void gpio_set_on(unsigned pin) {
 	// use gpio_set0
-  *gpio_set0 = 1 << pin;
+  *gpio_set0 &= ~(1 << pin);
+  *gpio_set0 |= 1 << pin;
 }
 void gpio_set_off(unsigned pin) {
 	// use gpio_clr0
-  *gpio_clr0 = 1 << pin;
+  *gpio_clr0 &= ~(1 << pin);
+  *gpio_clr0 |= 1 << pin;
 }
 
 // countdown 'ticks' cycles; the asm probably isn't necessary.
@@ -58,16 +60,12 @@ void delay(unsigned ticks) {
 
 int notmain ( void ) {
   int led = 5;
-  int led2 = 16;
   gpio_set_output(led);
-  gpio_set_output(led2);
   while(1) {
     gpio_set_on(led);
-    gpio_set_off(led2);
-    delay(1000000);
+    delay(5000000);
     gpio_set_off(led);
-    gpio_set_on(led2);
-    delay(1000000);
+    delay(5000000);
   }
   return 0;
 }

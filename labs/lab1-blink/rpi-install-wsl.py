@@ -93,9 +93,9 @@ if __name__ == "__main__":
             # # pyserial 2.6 in the VM has a bug where grep is case-sensitive.
             # # It also requires us to use [0] instead of .device on the result
             # # to get the serial device path.
-            portname = next(list_ports.grep(r'(?i)VID:PID=10C4:EA60'))[0]
-            print (list_ports.grep(r'/dev/ttyS*'))
-            printq('Found serial port:', bcolors.OKBLUE + portname + bcolors.ENDC)
+            # portname = next(list_ports.grep(r'(?i)VID:PID=10C4:EA60'))[0]
+            portname = "/dev/ttyS6"
+            # # printq('Found serial port:', bcolors.OKBLUE + portname + bcolors.ENDC)
 
 
 	    # DRE: This is our code for cs49n.

@@ -47,8 +47,7 @@ static void die(int code) {
 void notmain(void) {
 	uart_init();
 
-	// XXX: cs107e has this delay; doesn't seem to be required if 
-	// you drain the uart.
+	// XXX: cs107e has this delay; doesn't seem to be required if you drain the uart.
 	delay_ms(500);
 
 
@@ -61,7 +60,7 @@ void notmain(void) {
 	delay_ms(500);
 
 	// run what client sent.
-        BRANCHTO(ARMBASE);
+    BRANCHTO(ARMBASE);
 	// should not get back here, but just in case.
 	reboot();
 }

@@ -6,7 +6,7 @@ Disassembly of section .text:
 
 00008000 <_start>:
     8000:	e3a0d902 	mov	sp, #32768	; 0x8000
-    8004:	eb00009a 	bl	8274 <notmain>
+    8004:	eb00007c 	bl	81fc <notmain>
 
 00008008 <hang>:
     8008:	eafffffe 	b	8008 <hang>
@@ -92,129 +92,110 @@ Disassembly of section .text:
     8130:	e49db004 	pop	{fp}		; (ldr fp, [sp], #4)
     8134:	e12fff1e 	bx	lr
     8138:	cccccccd 	stclgt	12, cr12, [ip], {205}	; 0xcd
-    813c:	000082c4 	andeq	r8, r0, r4, asr #5
-    8140:	000082c8 	andeq	r8, r0, r8, asr #5
-    8144:	000082cc 	andeq	r8, r0, ip, asr #5
+    813c:	00008278 	andeq	r8, r0, r8, ror r2
+    8140:	0000827c 	andeq	r8, r0, ip, ror r2
+    8144:	00008280 	andeq	r8, r0, r0, lsl #5
 
 00008148 <gpio_set_on>:
     8148:	e52db004 	push	{fp}		; (str fp, [sp, #-4]!)
     814c:	e28db000 	add	fp, sp, #0
     8150:	e24dd00c 	sub	sp, sp, #12
     8154:	e50b0008 	str	r0, [fp, #-8]
-    8158:	e59f305c 	ldr	r3, [pc, #92]	; 81bc <gpio_set_on+0x74>
+    8158:	e59f3020 	ldr	r3, [pc, #32]	; 8180 <gpio_set_on+0x38>
     815c:	e5933000 	ldr	r3, [r3]
-    8160:	e59f2054 	ldr	r2, [pc, #84]	; 81bc <gpio_set_on+0x74>
-    8164:	e5922000 	ldr	r2, [r2]
-    8168:	e5922000 	ldr	r2, [r2]
-    816c:	e3a00001 	mov	r0, #1
-    8170:	e51b1008 	ldr	r1, [fp, #-8]
-    8174:	e1a01110 	lsl	r1, r0, r1
-    8178:	e1e01001 	mvn	r1, r1
-    817c:	e0022001 	and	r2, r2, r1
-    8180:	e5832000 	str	r2, [r3]
-    8184:	e59f3030 	ldr	r3, [pc, #48]	; 81bc <gpio_set_on+0x74>
-    8188:	e5933000 	ldr	r3, [r3]
-    818c:	e59f2028 	ldr	r2, [pc, #40]	; 81bc <gpio_set_on+0x74>
-    8190:	e5922000 	ldr	r2, [r2]
-    8194:	e5922000 	ldr	r2, [r2]
-    8198:	e3a00001 	mov	r0, #1
-    819c:	e51b1008 	ldr	r1, [fp, #-8]
-    81a0:	e1a01110 	lsl	r1, r0, r1
-    81a4:	e1822001 	orr	r2, r2, r1
+    8160:	e3a01001 	mov	r1, #1
+    8164:	e51b2008 	ldr	r2, [fp, #-8]
+    8168:	e1a02211 	lsl	r2, r1, r2
+    816c:	e5832000 	str	r2, [r3]
+    8170:	e1a00000 	nop			; (mov r0, r0)
+    8174:	e28bd000 	add	sp, fp, #0
+    8178:	e49db004 	pop	{fp}		; (ldr fp, [sp], #4)
+    817c:	e12fff1e 	bx	lr
+    8180:	00008284 	andeq	r8, r0, r4, lsl #5
+
+00008184 <gpio_set_off>:
+    8184:	e52db004 	push	{fp}		; (str fp, [sp, #-4]!)
+    8188:	e28db000 	add	fp, sp, #0
+    818c:	e24dd00c 	sub	sp, sp, #12
+    8190:	e50b0008 	str	r0, [fp, #-8]
+    8194:	e59f3020 	ldr	r3, [pc, #32]	; 81bc <gpio_set_off+0x38>
+    8198:	e5933000 	ldr	r3, [r3]
+    819c:	e3a01001 	mov	r1, #1
+    81a0:	e51b2008 	ldr	r2, [fp, #-8]
+    81a4:	e1a02211 	lsl	r2, r1, r2
     81a8:	e5832000 	str	r2, [r3]
     81ac:	e1a00000 	nop			; (mov r0, r0)
     81b0:	e28bd000 	add	sp, fp, #0
     81b4:	e49db004 	pop	{fp}		; (ldr fp, [sp], #4)
     81b8:	e12fff1e 	bx	lr
-    81bc:	000082d0 	ldrdeq	r8, [r0], -r0
+    81bc:	00008288 	andeq	r8, r0, r8, lsl #5
 
-000081c0 <gpio_set_off>:
+000081c0 <delay>:
     81c0:	e52db004 	push	{fp}		; (str fp, [sp, #-4]!)
     81c4:	e28db000 	add	fp, sp, #0
     81c8:	e24dd00c 	sub	sp, sp, #12
     81cc:	e50b0008 	str	r0, [fp, #-8]
-    81d0:	e59f305c 	ldr	r3, [pc, #92]	; 8234 <gpio_set_off+0x74>
-    81d4:	e5933000 	ldr	r3, [r3]
-    81d8:	e59f2054 	ldr	r2, [pc, #84]	; 8234 <gpio_set_off+0x74>
-    81dc:	e5922000 	ldr	r2, [r2]
-    81e0:	e5922000 	ldr	r2, [r2]
-    81e4:	e3a00001 	mov	r0, #1
-    81e8:	e51b1008 	ldr	r1, [fp, #-8]
-    81ec:	e1a01110 	lsl	r1, r0, r1
-    81f0:	e1e01001 	mvn	r1, r1
-    81f4:	e0022001 	and	r2, r2, r1
-    81f8:	e5832000 	str	r2, [r3]
-    81fc:	e59f3030 	ldr	r3, [pc, #48]	; 8234 <gpio_set_off+0x74>
-    8200:	e5933000 	ldr	r3, [r3]
-    8204:	e59f2028 	ldr	r2, [pc, #40]	; 8234 <gpio_set_off+0x74>
-    8208:	e5922000 	ldr	r2, [r2]
-    820c:	e5922000 	ldr	r2, [r2]
-    8210:	e3a00001 	mov	r0, #1
-    8214:	e51b1008 	ldr	r1, [fp, #-8]
-    8218:	e1a01110 	lsl	r1, r0, r1
-    821c:	e1822001 	orr	r2, r2, r1
-    8220:	e5832000 	str	r2, [r3]
-    8224:	e1a00000 	nop			; (mov r0, r0)
-    8228:	e28bd000 	add	sp, fp, #0
-    822c:	e49db004 	pop	{fp}		; (ldr fp, [sp], #4)
-    8230:	e12fff1e 	bx	lr
-    8234:	000082d4 	ldrdeq	r8, [r0], -r4
+    81d0:	ea000000 	b	81d8 <delay+0x18>
+    81d4:	e2811000 	add	r1, r1, #0
+    81d8:	e51b3008 	ldr	r3, [fp, #-8]
+    81dc:	e2432001 	sub	r2, r3, #1
+    81e0:	e50b2008 	str	r2, [fp, #-8]
+    81e4:	e3530000 	cmp	r3, #0
+    81e8:	1afffff9 	bne	81d4 <delay+0x14>
+    81ec:	e1a00000 	nop			; (mov r0, r0)
+    81f0:	e28bd000 	add	sp, fp, #0
+    81f4:	e49db004 	pop	{fp}		; (ldr fp, [sp], #4)
+    81f8:	e12fff1e 	bx	lr
 
-00008238 <delay>:
-    8238:	e52db004 	push	{fp}		; (str fp, [sp, #-4]!)
-    823c:	e28db000 	add	fp, sp, #0
-    8240:	e24dd00c 	sub	sp, sp, #12
-    8244:	e50b0008 	str	r0, [fp, #-8]
-    8248:	ea000000 	b	8250 <delay+0x18>
-    824c:	e2811000 	add	r1, r1, #0
+000081fc <notmain>:
+    81fc:	e92d4800 	push	{fp, lr}
+    8200:	e28db004 	add	fp, sp, #4
+    8204:	e24dd008 	sub	sp, sp, #8
+    8208:	e3a03005 	mov	r3, #5
+    820c:	e50b3008 	str	r3, [fp, #-8]
+    8210:	e3a03010 	mov	r3, #16
+    8214:	e50b300c 	str	r3, [fp, #-12]
+    8218:	e51b3008 	ldr	r3, [fp, #-8]
+    821c:	e1a00003 	mov	r0, r3
+    8220:	ebffff7d 	bl	801c <gpio_set_output>
+    8224:	e51b300c 	ldr	r3, [fp, #-12]
+    8228:	e1a00003 	mov	r0, r3
+    822c:	ebffff7a 	bl	801c <gpio_set_output>
+    8230:	e51b3008 	ldr	r3, [fp, #-8]
+    8234:	e1a00003 	mov	r0, r3
+    8238:	ebffffc2 	bl	8148 <gpio_set_on>
+    823c:	e51b300c 	ldr	r3, [fp, #-12]
+    8240:	e1a00003 	mov	r0, r3
+    8244:	ebffffce 	bl	8184 <gpio_set_off>
+    8248:	e59f0024 	ldr	r0, [pc, #36]	; 8274 <notmain+0x78>
+    824c:	ebffffdb 	bl	81c0 <delay>
     8250:	e51b3008 	ldr	r3, [fp, #-8]
-    8254:	e2432001 	sub	r2, r3, #1
-    8258:	e50b2008 	str	r2, [fp, #-8]
-    825c:	e3530000 	cmp	r3, #0
-    8260:	1afffff9 	bne	824c <delay+0x14>
-    8264:	e1a00000 	nop			; (mov r0, r0)
-    8268:	e28bd000 	add	sp, fp, #0
-    826c:	e49db004 	pop	{fp}		; (ldr fp, [sp], #4)
-    8270:	e12fff1e 	bx	lr
-
-00008274 <notmain>:
-    8274:	e92d4800 	push	{fp, lr}
-    8278:	e28db004 	add	fp, sp, #4
-    827c:	e24dd008 	sub	sp, sp, #8
-    8280:	e3a03005 	mov	r3, #5
-    8284:	e50b3008 	str	r3, [fp, #-8]
-    8288:	e51b3008 	ldr	r3, [fp, #-8]
-    828c:	e1a00003 	mov	r0, r3
-    8290:	ebffff61 	bl	801c <gpio_set_output>
-    8294:	e51b3008 	ldr	r3, [fp, #-8]
-    8298:	e1a00003 	mov	r0, r3
-    829c:	ebffffa9 	bl	8148 <gpio_set_on>
-    82a0:	e59f0018 	ldr	r0, [pc, #24]	; 82c0 <notmain+0x4c>
-    82a4:	ebffffe3 	bl	8238 <delay>
-    82a8:	e51b3008 	ldr	r3, [fp, #-8]
-    82ac:	e1a00003 	mov	r0, r3
-    82b0:	ebffffc2 	bl	81c0 <gpio_set_off>
-    82b4:	e59f0004 	ldr	r0, [pc, #4]	; 82c0 <notmain+0x4c>
-    82b8:	ebffffde 	bl	8238 <delay>
-    82bc:	eafffff4 	b	8294 <notmain+0x20>
-    82c0:	004c4b40 	subeq	r4, ip, r0, asr #22
+    8254:	e1a00003 	mov	r0, r3
+    8258:	ebffffc9 	bl	8184 <gpio_set_off>
+    825c:	e51b300c 	ldr	r3, [fp, #-12]
+    8260:	e1a00003 	mov	r0, r3
+    8264:	ebffffb7 	bl	8148 <gpio_set_on>
+    8268:	e59f0004 	ldr	r0, [pc, #4]	; 8274 <notmain+0x78>
+    826c:	ebffffd3 	bl	81c0 <delay>
+    8270:	eaffffee 	b	8230 <notmain+0x34>
+    8274:	000f4240 	andeq	r4, pc, r0, asr #4
 
 Disassembly of section .data:
 
-000082c4 <gpio_fsel0>:
-    82c4:	20200000 	eorcs	r0, r0, r0
+00008278 <gpio_fsel0>:
+    8278:	20200000 	eorcs	r0, r0, r0
 
-000082c8 <gpio_fsel1>:
-    82c8:	20200004 	eorcs	r0, r0, r4
+0000827c <gpio_fsel1>:
+    827c:	20200004 	eorcs	r0, r0, r4
 
-000082cc <gpio_fsel2>:
-    82cc:	20200008 	eorcs	r0, r0, r8
+00008280 <gpio_fsel2>:
+    8280:	20200008 	eorcs	r0, r0, r8
 
-000082d0 <gpio_set0>:
-    82d0:	2020001c 	eorcs	r0, r0, ip, lsl r0
+00008284 <gpio_set0>:
+    8284:	2020001c 	eorcs	r0, r0, ip, lsl r0
 
-000082d4 <gpio_clr0>:
-    82d4:	20200028 	eorcs	r0, r0, r8, lsr #32
+00008288 <gpio_clr0>:
+    8288:	20200028 	eorcs	r0, r0, r8, lsr #32
 
 Disassembly of section .ARM.attributes:
 
@@ -235,7 +216,7 @@ Disassembly of section .ARM.attributes:
 Disassembly of section .comment:
 
 00000000 <.comment>:
-   0:	3a434347 	bcc	10d0d24 <gpio_clr0+0x10c8a50>
+   0:	3a434347 	bcc	10d0d24 <gpio_clr0+0x10c8a9c>
    4:	35312820 	ldrcc	r2, [r1, #-2080]!	; 0xfffff7e0
    8:	332e363a 			; <UNDEFINED> instruction: 0x332e363a
    c:	732b312e 			; <UNDEFINED> instruction: 0x732b312e
